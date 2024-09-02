@@ -13,7 +13,7 @@ public class AddressDTO {
 	
 	@JsonProperty("address")
 	private String address;
-	private String id;
 	private String detailAddress;
+	private String id;
 
 }

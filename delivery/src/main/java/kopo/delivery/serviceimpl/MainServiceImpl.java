@@ -23,8 +23,10 @@ public class MainServiceImpl implements MainService{
     	Address addressentity = new Address();
     	addressentity.setId("habeen"); //아이디 고정
     	addressentity.setAddress(addressdto.getAddress()); //dto에서 http에서 넣은 값 가져오기
+    	addressentity.setDetailAddress(addressdto.getDetailAddress());
     	System.out.println(addressentity.getId());
     	System.out.println(addressentity.getAddress());
+    	System.out.println(addressentity.getDetailAddress());
     	addressRepo.save(addressentity); //데이터베이스에 저장.
     }
 

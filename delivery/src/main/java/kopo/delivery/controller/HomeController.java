@@ -43,7 +43,7 @@ public class HomeController {
 		mainsevice.addressSave(addressdto);
 		
 		Map<String, String> response = new HashMap<>();
-		response.put("redirectUrl", "/");
+		response.put("status", "success");
 		return response;
 	}
 	

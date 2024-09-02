@@ -18,7 +18,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <!-- Left: Address -->
             <div>
-                <span><a href="/map"><i class="fas fa-map-marker-alt"></i> 서울특별시 강남구 역삼동</span>
+                <span><a href="javascript:void(0);" onclick="openMapPopup()"><i class="fas fa-map-marker-alt"></i> 서울특별시 강남구 역삼동</a></span>
             </div>
 
             <!-- Right: Icons (Notifications, Cart, My Page) -->
@@ -100,4 +100,13 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+<script>
+	function openMapPopup() {
+	    const popupWidth = 600;
+	    const popupHeight = 900;
+	    const left = (window.screen.width / 2) - (popupWidth / 2);
+	    const top = (window.screen.height / 2) - (popupHeight / 2);
+	    window.open('/map', 'mapPopup', `width=${popupWidth},height=${popupHeight},left=${left},top=${top},resizable=yes,scrollbars=yes`);
+	}
+</script>
 </html>
