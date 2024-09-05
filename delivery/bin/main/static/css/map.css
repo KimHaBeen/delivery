@@ -6,6 +6,7 @@
     width: 100%; /* 폼의 너비를 부모 요소에 맞춤 */
     max-width: 500px; /* 폼의 최대 너비를 500px로 제한 */
     margin: 0 auto; /* 폼을 가운데 정렬 */
+    margin-top: 20px; /*위에서 */
 }
 
 #address, #detail {
@@ -89,4 +90,58 @@
     font-size: 1.5rem; /* 크기 조정 */
     z-index: 10000; /* z-index를 높게 설정하여 다른 요소들 위에 표시되도록 함 */
     cursor: pointer;
+}
+
+#addressList {
+	margin-top: 20px;
+}
+
+/* 각 주소 아이템의 컨테이너 */
+.address-item {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    position: relative; /* 선택 버튼 위치 조정을 위한 relative 설정 */
+}
+
+/* 선택 버튼을 주소 오른쪽 끝에서 약간 왼쪽으로 옮김 */
+.select {
+    position: absolute;
+    top: 50%;
+    right: 20px; /* 오른쪽에서 20px 떨어진 위치로 설정 */
+    transform: translateY(-50%);
+    background-color: #007BFF;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* 수정 및 삭제 버튼을 주소 글씨 아래에 배치 */
+.address-actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 10px; /* 위쪽 주소와의 간격 */
+}
+
+.address-actions button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit {
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.delete {
+    background-color: #ccc;
+    color: white;
 }

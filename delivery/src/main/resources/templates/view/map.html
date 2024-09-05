@@ -19,10 +19,19 @@
 		<button type="button" id="saveButton" onclick="save()">저장</button>
 	</form>
 	
-	<ul>
-		<li th:each="address : ${address}">
-			<span th:text="${address.address}"></span>   <!-- ${여기가 controller에서 가져온 애} --> 
-	</ul>
+	<div id="addressList">
+		<div th:each="address : ${address}" class="address-item">
+            <div>
+			    <span th:text="${address.address}" class="address-text"></span>   <!-- 주소 텍스트 표시 -->
+            	<input type="hidden" th:value="${address.address}" class="selextText">
+            </div>
+            <div class="address-actions">
+                <button type="button" class="select">선택</button>
+                <button type="button" class="edit">수정</button>
+                <button type="button" class="delete">삭제</button>
+            </div>
+		</div>
+	</div>
 	
     <div id="overlay">
         <div id="overlayContent">
@@ -105,6 +114,25 @@
 		$('#addressForm').submit(function(event) {
 		    event.preventDefault(); // 기본 동작 막기
 		    save(); // ajax 요청 수행
+		});
+		
+		$(document).on('click', '.select', function() {
+		    const data = $(this).closest('.address-item').find('.selextText').val(); 
+			const payload = { selectAddress : data };
+			console.log("선택된 주소: ", data)
+			
+			$.ajax({
+				url: '/selectAddress',
+				type: 'post',
+				contentType: 'application/json',
+	            data: JSON.stringify(payload),
+	            success: function(response) {
+	            	window.close();
+	            	window.location.reload();
+	            },error: function(xhr, status, error) {
+	                console.error('Error:', error); // 오류 발생 시 콘솔에 출력
+	            }
+			})
 		});
  </script>
 </html>

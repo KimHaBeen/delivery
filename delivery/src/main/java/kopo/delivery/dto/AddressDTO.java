@@ -14,6 +14,7 @@ public class AddressDTO {
 	@JsonProperty("address")
 	private String address;
 	private String detailAddress;
+	private String role;
 	private String id;
 
 }
