@@ -127,8 +127,8 @@
 				contentType: 'application/json',
 	            data: JSON.stringify(payload),
 	            success: function(response) {
+	            	window.opener.location.reload();
 	            	window.close();
-	            	window.location.reload();
 	            },error: function(xhr, status, error) {
 	                console.error('Error:', error); // 오류 발생 시 콘솔에 출력
 	            }

@@ -53,6 +53,7 @@ public class MainServiceImpl implements MainService{
 
 	@Override
 	public String sessionValue(Object address) {
+		System.out.println("service: " + address);
 		if(address != null) {
 			 return (String) address;
 		}else 

@@ -19,8 +19,8 @@
             <!-- Left: Address -->
             <div>
                 <span><a href="javascript:void(0);" onclick="openMapPopup()"><i class="fas fa-map-marker-alt"></i>
-                <span th:if="${selectAddress} == null" th:text="${address}"></span>
-                <span th:unless="${selectAddress} != null" th:text="${selectAddress}"></span></a></span>
+                <!--<span th:if="${selectAddress} == null" th:text="${address}"></span>-->
+                <span th:text="${selectAddress}"></span></a></span>
             </div>
 
             <!-- Right: Icons (Notifications, Cart, My Page) -->

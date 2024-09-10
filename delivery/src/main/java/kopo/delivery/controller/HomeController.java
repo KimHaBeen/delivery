@@ -31,9 +31,16 @@ public class HomeController {
 		String roleYaddress = mainsevice.roleAddress();
 		model.addAttribute("address", roleYaddress);
 		
-		Object address = session.getAttribute("selectAddress");
-		String selectAddress = mainsevice.sessionValue(address);
-		model.addAttribute("selectAddress", selectAddress);
+		Object addressObj = session.getAttribute("selectAddress");
+		System.out.println("세션에 저장되어 있는 애는 누구인가?" + addressObj);
+		String selectAddress = null;
+		
+		if (addressObj != null) {
+			selectAddress = mainsevice.sessionValue(addressObj);
+			model.addAttribute("selectAddress", selectAddress);
+		}else {
+			selectAddress = roleYaddress;
+		}
 		return "index";
 	}
 	
