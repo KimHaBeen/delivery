@@ -19,8 +19,8 @@
             <!-- Left: Address -->
             <div>
                 <span><a href="javascript:void(0);" onclick="openMapPopup()"><i class="fas fa-map-marker-alt"></i>
-                <!--<span th:if="${selectAddress} == null" th:text="${address}"></span>-->
-                <span th:text="${selectAddress}"></span></a></span>
+                <span th:if="${selectAddress} == null" th:text="${address}"></span>
+                <span th:nuless="${selectAddress} != null" th:text="${selectAddress}"></span></a></span>
             </div>
 
             <!-- Right: Icons (Notifications, Cart, My Page) -->
@@ -41,8 +41,10 @@
     <div class="container">
         <div class="category-grid">
             <div class="category-item">
+            <a href="/menu/bossam" class="item-link">
 	            <img src="/images/bossam.png" alt="족발·보쌈">
 	            <span>족발·보쌈</span>
+	        </a>
         	</div>
 	        <div class="category-item">
 	            <img src="/images/japanese.png" alt="돈까스·회·일식">

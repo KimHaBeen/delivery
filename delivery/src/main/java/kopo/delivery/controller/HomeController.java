@@ -28,6 +28,7 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String home(Model model, HttpSession session) {
+		
 		String roleYaddress = mainsevice.roleAddress();
 		model.addAttribute("address", roleYaddress);
 		
@@ -40,6 +41,7 @@ public class HomeController {
 			model.addAttribute("selectAddress", selectAddress);
 		}else {
 			selectAddress = roleYaddress;
+			
 		}
 		return "index";
 	}
