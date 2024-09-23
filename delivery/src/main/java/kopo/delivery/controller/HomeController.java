@@ -24,12 +24,12 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class HomeController {
 	
-	private final MainService mainsevice;
+	private final MainService mainservice;
 
 	@GetMapping("/")
 	public String home(Model model, HttpSession session) {
 		
-		String roleYaddress = mainsevice.roleAddress();
+		String roleYaddress = mainservice.roleAddress();
 		model.addAttribute("address", roleYaddress);
 		
 		Object addressObj = session.getAttribute("selectAddress");
@@ -37,7 +37,7 @@ public class HomeController {
 		String selectAddress = null;
 		
 		if (addressObj != null) {
-			selectAddress = mainsevice.sessionValue(addressObj);
+			selectAddress = mainservice.sessionValue(addressObj);
 			model.addAttribute("selectAddress", selectAddress);
 		}else {
 			selectAddress = roleYaddress;
@@ -48,7 +48,7 @@ public class HomeController {
 	
 	@GetMapping("/map")
 	public String map(Model model) {
-		List<Address> address = mainsevice.getAllAddress();
+		List<Address> address = mainservice.getAllAddress();
 		model.addAttribute("address", address);
 		return "view/map";
 	}
@@ -56,7 +56,7 @@ public class HomeController {
 	@PostMapping("/address")
 	@ResponseBody
 	public Map<String, String> mapComplete(@RequestBody AddressDTO addressdto) throws Exception {
-		mainsevice.addressSave(addressdto);
+		mainservice.addressSave(addressdto);
 		
 		Map<String, String> response = new HashMap<>();
 		response.put("status", "success");

@@ -10,9 +10,15 @@ import lombok.Getter;
 public class Store {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "STOREID", nullable = false)
-    @NotBlank
-    private String storeID;
+    @Column(name = "STORE_ID", nullable = false)
+    private Long storeID;
 
+    @Column(nullable = false)
+    private String storeName;
+
+    @Column(nullable = false)
+    private int storeMinAmount;
+
+    @JoinColumn(name = "CATEGORY_ID", nullable = false)
+    private String category;
 }
