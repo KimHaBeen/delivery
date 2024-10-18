@@ -3,8 +3,10 @@ package kopo.delivery.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Table
 @Entity(name = "store")
 public class Store {

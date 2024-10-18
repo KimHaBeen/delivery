@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -20,7 +21,10 @@ public class MenuServiceImpl implements MenuService {
     private final StoreRepo storeRepo;
 
     @Override
-    public List<StoreMenu> getAllMenuList() {
-        return storeMenuRepo.findAll();
+    public Map<Long, List<StoreMenu>> getMenuGroupByStore() {
+
+        List<StoreMenu> allMenu = storeMenuRepo.findAll();
+        return allMenu.stream()
+                .collect(Collectors.groupingBy(menu -> menu.getStore().getStoreID()));
     }
 }

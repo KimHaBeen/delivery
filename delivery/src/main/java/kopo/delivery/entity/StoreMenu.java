@@ -2,10 +2,12 @@ package kopo.delivery.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity(name = "storeMenu")
 @Table
 @Getter
+@Setter
 public class StoreMenu {
 
     @Id
@@ -13,9 +15,9 @@ public class StoreMenu {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "STORE_ID", nullable = false)
-    private Store storeId; //Store.java에 StoreId와 FK
+    private Store store; //Store.java에 StoreId와 FK
 
     @Column(nullable = false, length = 100)
     private String menuName;

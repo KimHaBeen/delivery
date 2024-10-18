@@ -1,5 +1,6 @@
 package kopo.delivery.dto;
 
+import kopo.delivery.entity.Store;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,7 +10,7 @@ import lombok.ToString;
 public class StoreMenuDTO {
 
     private Long id;
-    private Long storeId;
+    private Store store;
     private String menuName;
     private int menuAmount;
     private String url;
