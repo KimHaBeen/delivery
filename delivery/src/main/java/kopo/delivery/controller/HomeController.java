@@ -1,9 +1,11 @@
 package kopo.delivery.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kopo.delivery.entity.Category;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,6 +45,10 @@ public class HomeController {
 			selectAddress = roleYaddress;
 			
 		}
+
+		List<Category> category = mainservice.getAllCategory();
+		model.addAttribute("category", category);
+		System.out.println(category);
 		return "index";
 	}
 	

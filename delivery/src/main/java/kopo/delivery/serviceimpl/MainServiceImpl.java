@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import kopo.delivery.entity.Category;
+import kopo.delivery.repository.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -21,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class MainServiceImpl implements MainService{
 	
     private final AddressRepo addressRepo;
+	private final CategoryRepo categoryRepo;
     Address addressentity = new Address();
     
     @Override
@@ -60,9 +63,10 @@ public class MainServiceImpl implements MainService{
 			return null;
 	}
 
+	@Override
+	public List<Category> getAllCategory() {
+		return categoryRepo.findAll();
+	}
 
-    
-
-	
 
 }

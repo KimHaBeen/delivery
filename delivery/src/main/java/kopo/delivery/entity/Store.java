@@ -21,6 +21,7 @@ public class Store {
     @Column(nullable = false)
     private int storeMinAmount;
 
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CATEGORY_ID", nullable = false)
-    private String category;
+    private Category category;
 }

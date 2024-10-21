@@ -1,7 +1,7 @@
 package kopo.delivery.controller;
 
-import com.sun.tools.javac.Main;
 import jakarta.servlet.http.HttpSession;
+import kopo.delivery.entity.Store;
 import kopo.delivery.entity.StoreMenu;
 import kopo.delivery.service.MainService;
 import kopo.delivery.service.MenuService;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,26 +29,29 @@ public class MenuController {
 		return "menu/bossam";
 	}
 
-	@GetMapping("/menu/jjigae")
-	public String jjigaePage(Model model, HttpSession session) {
-
+	@GetMapping("/menu/{categoryID}")
+	public String menuPage(@PathVariable("categoryID") int categoryID, Model model, HttpSession session) {
+		//header 주소설정
 		Object addressObj = session.getAttribute("selectAddress");
-		String selectAddress = null;
-
-		if (addressObj != null) {
-			selectAddress = mainService.sessionValue(addressObj);
-		} else {
-			selectAddress = mainService.roleAddress();
-		}
+		String selectAddress = (addressObj != null)
+				? mainService.sessionValue(addressObj)
+				: mainService.roleAddress();
 
 		model.addAttribute("selectAddress", selectAddress);
 
-		Map<Long, List<StoreMenu>> groupMenus = menuService.getMenuGroupByStore();
+		//카테고리에 맞는 가게 조회
+		List<Store> stores = menuService.getStoreByCategory(categoryID);
+		model.addAttribute("stores", stores);
 
+		//메뉴그룹화
+		Map<Store, List<StoreMenu>> groupMenus = new HashMap<>();
+		for (Store store : stores) {
+			List<StoreMenu> menus = menuService.getMenuByStore(store.getStoreID());
+			groupMenus.put(store, menus);
+		}
 		model.addAttribute("groupMenus", groupMenus);
-		System.out.println(groupMenus);
 
-		return "menu/jjigae";
+		return "menu/menu";
 	}
 	
 

@@ -1,5 +1,6 @@
 package kopo.delivery.repository;
 
+import kopo.delivery.entity.Store;
 import kopo.delivery.entity.StoreMenu;
 import org.springframework.data.jpa.repository.JpaRepository;
 
