@@ -19,17 +19,12 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
-public class MenuController {
+public class StoreController {
 
 	private final MenuService menuService;
 	private final MainService mainService;
-	
-	@GetMapping("/menu/bossam")
-	public String bossamPage() {
-		return "menu/bossam";
-	}
 
-	@GetMapping("/menu/{categoryID}")
+	@GetMapping("/category/{categoryID}")
 	public String menuPage(@PathVariable("categoryID") int categoryID, Model model, HttpSession session) {
 		//header 주소설정
 		Object addressObj = session.getAttribute("selectAddress");
@@ -51,7 +46,7 @@ public class MenuController {
 		}
 		model.addAttribute("groupMenus", groupMenus);
 
-		return "menu/menu";
+		return "menu/store";
 	}
 	
 
