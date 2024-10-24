@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/menu.css">
+    <title th:text="${store.storeName}"></title>
+</head>
+<body>
+<th:block th:replace="~{layout/header :: headerFragment}"></th:block>
+    <div class="container">
+        <div class="restaurant-info">
+            <img th:src="${store.url}" alt="storeIMG" class="restaurant-image">
+            <div class="restaurant-details">
+                <h1 th:text="${store.storeName}"></h1>
+                <p th:text="${#numbers.formatInteger(store.storeMinAmount, 3, 'COMMA')+'원'}" class="restaurant-description">최소주문</p>
+                <p class="restaurant-contact">영업시간</p>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <h2>메뉴</h2>
+        <br>
+        <div class="menu-grid">
+            <div th:each="menu : ${menus}" class="menu-item">
+                <img th:src="${menu.url}" alt="menuIMG">
+                <div class="menu-item-content">
+                    <h3 th:text="${menu.menuName}" class="menu-item-title"></h3>
+                    <p th:text="${#numbers.formatInteger(menu.menuAmount, 3, 'COMMA')+'원'}" class="menu-item-description"></p>
+                    <i class="fa-solid fa-cart-plus cart-icon"
+                       th:attr="data-id=${menu.id}, data-name=${menu.menuName}, data-amount=${menu.menuAmount}"></i>
+                </div>
+            </div>
+            <!-- 더 많은 메뉴 항목을 추가할 수 있습니다 -->
+        </div>
+    </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.cart-icon').on('click', function() {
+            let data = {
+                        id: $(this).data('id'),
+                        menuName: $(this).data('name'),
+                        amount: $(this).data('amount')
+                        }
+            $.ajax({
+                url: "/addcart",
+                type: "post",
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function (response) {
+                    console.log("id:", response.id)
+                    console.log("name:", response.menuname)
+                    console.log("time:", response.time)
+                },error: function (xhr, status, error) {
+                    console.error("에러 발생", error)
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
