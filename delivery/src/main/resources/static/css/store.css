@@ -88,3 +88,30 @@ h3 {
     font-size: 14px;
     color: #777; /* 최소 주문 금액 텍스트 색상 */
 }
+
+.empty-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    text-align: center;
+}
+.empty-state-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.empty-state-icon {
+    font-size: 3rem;
+    color: #9CA3AF;
+    margin-bottom: 1rem;
+}
+.empty-state-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+.empty-state-description {
+    color: #6B7280;
+}

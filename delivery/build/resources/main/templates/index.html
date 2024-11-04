@@ -39,23 +39,33 @@
     <div class="container">
         <div class="category-grid">
             <div class="category-item">
-            <a href="/menu/bossam" class="item-link">
-	            <img src="/images/bossam.png" alt="족발·보쌈">
+			<a th:href="@{'/category/' + ${category[0].id}}" class="item-link">
+				<img src="/images/bossam.png" alt="족발·보쌈">
 	            <span>족발·보쌈</span>
 	        </a>
         	</div>
+
 	        <div class="category-item">
-	            <img src="/images/japanese.png" alt="돈까스·회·일식">
+			<a th:href="@{'/category/' + ${category[1].id}}" class="item-link">
+				<img src="/images/japanese.png" alt="돈까스·회·일식">
 	            <span>돈까스·회·일식</span>
+			</a>
 	        </div>
+
 	        <div class="category-item">
+			<a th:href="@{'/category/' + ${category[2].id}}" class="item-link">
 	            <img src="/images/meat.png" alt="고기·구이">
 	            <span>고기·구이</span>
+			</a>
 	        </div>
+
 	        <div class="category-item">
+			<a th:href="@{'/category/' + ${category[3].id}}" class="item-link">
 	            <img src="/images/pizza.png" alt="피자">
 	            <span>피자</span>
+			</a>
 	        </div>
+
 	        <div class="category-item">
 			<a th:href="@{'/category/' + ${category[4].id}}" class="item-link">
 	            <img src="/images/jjiage.png" alt="찜·탕·찌개">
@@ -64,53 +74,62 @@
 	        </div>
 	
 	        <div class="category-item">
+			<a th:href="@{'/category/' + ${category[5].id}}" class="item-link">
 	            <img src="/images/pasta.png" alt="양식">
 	            <span>양식</span>
+			</a>
 	        </div>
+
 	        <div class="category-item">
+			<a th:href="@{'/category/' + ${category[6].id}}" class="item-link">
 	            <img src="/images/chinese.png" alt="중식">
 	            <span>중식</span>
+			</a>
 	        </div>
+
 	        <div class="category-item">
-	            <img src="/images/asian.png" alt="아시안">
+			<a th:href="@{'/category/' + ${category[7].id}}" class="item-link">
+				<img src="/images/asian.png" alt="아시안">
 	            <span>아시안</span>
+			</a>
 	        </div>
+
 	        <div class="category-item">
-	            <img src="/images/chicken.png" alt="치킨">
+			<a th:href="@{'/category/' + ${category[8].id}}" class="item-link">
+				<img src="/images/chicken.png" alt="치킨">
 	            <span>치킨</span>
+			</a>
 	        </div>
+
 	        <div class="category-item">
-	            <img src="/images/korean.png" alt="백반·죽·국수">
+			<a th:href="@{'/category/' + ${category[9].id}}" class="item-link">
+				<img src="/images/korean.png" alt="백반·죽·국수">
 	            <span>백반·죽·국수</span>
+			</a>
 	        </div>
 	
 	        <div class="category-item">
-	            <img src="/images/burger.png" alt="버거">
+			<a th:href="@{'/category/' + ${category[10].id}}" class="item-link">
+				<img src="/images/burger.png" alt="버거">
 	            <span>버거</span>
+			</a>
 	        </div>
+
 	        <div class="category-item">
-	            <img src="/images/bunsik.png" alt="분식">
+			<a th:href="@{'/category/' + ${category[11].id}}" class="item-link">
+				<img src="/images/bunsik.png" alt="분식">
 	            <span>분식</span>
+			</a>
 	        </div>
+
 	        <div class="category-item">
-	            <img src="/images/cafe.png" alt="카페·디저트">
+			<a th:href="@{'/category/' + ${category[12].id}}" class="item-link">
+				<img src="/images/cafe.png" alt="카페·디저트">
 	            <span>카페·디저트</span>
+			</a>
 	        </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS and dependencies (Optional) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-<script>
-	function openMapPopup() {
-	    const popupWidth = 600;
-	    const popupHeight = 900;
-	    const left = (window.screen.width / 2) - (popupWidth / 2);
-	    const top = (window.screen.height / 2) - (popupHeight / 2);
-	    window.open('/map', 'mapPopup', `width=${popupWidth},height=${popupHeight},left=${left},top=${top},resizable=yes,scrollbars=yes`);
-	}
-</script>
 </html>

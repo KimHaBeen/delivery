@@ -26,27 +26,26 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class HomeController {
 	
-	private final MainService mainservice;
+	private final MainService mainService;
 
 	@GetMapping("/")
 	public String home(Model model, HttpSession session) {
 		
-		String roleYaddress = mainservice.roleAddress();
+		/*String roleYaddress = mainservice.roleAddress();
 		model.addAttribute("address", roleYaddress);
 		
-		Object addressObj = session.getAttribute("selectAddress");
-		System.out.println("세션에 저장되어 있는 애는 누구인가?" + addressObj);
-		String selectAddress = null;
-		
-		if (addressObj != null) {
-			selectAddress = mainservice.sessionValue(addressObj);
-			model.addAttribute("selectAddress", selectAddress);
-		}else {
-			selectAddress = roleYaddress;
-			
-		}
+		String selectAddress = (String) session.getAttribute("selectAddress");*/
 
-		List<Category> category = mainservice.getAllCategory();
+		String address = (String) session.getAttribute("selectAddress");
+		System.out.println("세션에 저장되어 있는 애는 누구인가?" + address);
+		String selectAddress = (address != null)
+				? mainService.sessionValue(address)
+				: mainService.roleAddress();
+
+		model.addAttribute("selectAddress", selectAddress);
+
+
+		List<Category> category = mainService.getAllCategory();
 		model.addAttribute("category", category);
 		System.out.println(category);
 		return "index";
@@ -54,7 +53,7 @@ public class HomeController {
 	
 	@GetMapping("/map")
 	public String map(Model model) {
-		List<Address> address = mainservice.getAllAddress();
+		List<Address> address = mainService.getAllAddress();
 		model.addAttribute("address", address);
 		return "view/map";
 	}
@@ -62,7 +61,7 @@ public class HomeController {
 	@PostMapping("/address")
 	@ResponseBody
 	public Map<String, String> mapComplete(@RequestBody AddressDTO addressdto) throws Exception {
-		mainservice.addressSave(addressdto);
+		mainService.addressSave(addressdto);
 		
 		Map<String, String> response = new HashMap<>();
 		response.put("status", "success");

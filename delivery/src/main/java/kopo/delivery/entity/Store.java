@@ -7,10 +7,10 @@ import lombok.Setter;
 
 import java.util.List;
 
+@Entity(name = "store")
 @Getter
 @Setter
 @Table
-@Entity(name = "store")
 public class Store {
 
     @Id
@@ -24,7 +24,7 @@ public class Store {
     private int storeMinAmount;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CATEGORY_ID", nullable = false)
+    @JoinColumn(name = "CATEGORY_REF_ID", nullable = false)
     private Category category;
 
     private String url;

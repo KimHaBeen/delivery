@@ -1,11 +1,12 @@
 package kopo.delivery.service;
 
-import kopo.delivery.dto.CartDTO;
+import kopo.delivery.entity.Category;
 import kopo.delivery.entity.Store;
 import kopo.delivery.entity.StoreMenu;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface MenuService {
 
@@ -17,4 +18,5 @@ public interface MenuService {
 
      List<StoreMenu> getMenuByStore(Long storeId);
 
+     Optional<Category> getCategoryById(Long CategoryID);
 }

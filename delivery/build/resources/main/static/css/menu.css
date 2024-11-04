@@ -3,52 +3,76 @@
     margin: 0;
     padding: 0;
 }
+
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
     background-color: #f4f4f4;
     color: #333;
 }
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
+
+.content-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+.main-content {
+    flex: 1;
+}
+
 .restaurant-info {
     display: flex;
     margin-bottom: 30px;
 }
+
 .restaurant-image {
     width: 300px;
     height: 300px;
     object-fit: cover;
     border-radius: 8px;
 }
+
 .restaurant-details {
     margin-left: 30px;
     flex-grow: 1;
 }
+
 h1 {
     color: #2c3e50;
     margin-bottom: 15px;
 }
+
 .restaurant-description {
     margin-bottom: 15px;
 }
+
 .restaurant-contact {
     font-style: italic;
     color: #666;
 }
+
 .divider {
     border: none;
     border-top: 1px solid #ddd;
     margin: 30px 0;
 }
+
+.menu-section h2 {
+    margin-bottom: 20px;
+}
+
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
 }
+
 .menu-item {
     background-color: #fff;
     border-radius: 8px;
@@ -56,27 +80,33 @@ h1 {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
+
 .menu-item:hover {
     transform: translateY(-5px);
 }
+
 .menu-item img {
     width: 100%;
     height: 200px;
     object-fit: cover;
 }
+
 .menu-item-content {
     padding: 15px;
 }
+
 .menu-item-title {
     font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 10px;
 }
+
 .menu-item-description {
     font-size: 0.9rem;
     color: #666;
     margin-bottom: 10px;
 }
+
 .menu-item-price {
     font-size: 1.1rem;
     font-weight: bold;
@@ -84,30 +114,76 @@ h1 {
 }
 
 .cart-icon {
-    font-size: 24px; /* 아이콘 크기 */
-    color: #555; /* 색상 */
     cursor: pointer;
-    margin: 10px;
-    transition: color 0.3s;
+    color: #3498db;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
 }
+
 .cart-icon:hover {
-    color: #007BFF; /* 호버 시 색상 변경 */
+    color: #2980b9;
+}
+
+.cart {
+    width: 300px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+    height: fit-content;
+}
+
+.cart h2 {
+    margin-bottom: 15px;
+}
+
+.cart-items {
+    margin-bottom: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.cart-total {
+    font-weight: bold;
+    text-align: right;
 }
 
 @media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+
     .restaurant-info {
         flex-direction: column;
     }
+
     .restaurant-image {
         width: 100%;
         height: auto;
         aspect-ratio: 1 / 1;
         margin-bottom: 20px;
     }
+
     .restaurant-details {
         margin-left: 0;
     }
+
     .menu-grid {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .cart {
+        width: 100%;
+        position: static;
+        margin-top: 20px;
     }
 }

@@ -13,5 +13,8 @@ public class StoreDTO {
     @Setter private int storeMinAmount;
     @Setter private String category;
 
+    public StoreDTO(String storeName) {
+        this.storeName = storeName;
+    }
 
 }

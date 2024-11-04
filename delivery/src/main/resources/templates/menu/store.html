@@ -2,12 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${stores[0].category.category}"></title>
+    <title th:text="${category}"></title>
     <link rel="stylesheet" href="/css/store.css">
 </head>
 <body>
 <!--header 고정-->
 <th:block th:replace="~{layout/header :: headerFragment}"></th:block>
+
+<div class="restaurant-container">
+    <div th:if="${groupMenus.isEmpty()}" class="empty-state">
+        <div class="empty-state-content">
+            <div class="empty-state-icon">🍽️</div>
+            <h2 class="empty-state-title">등록된 가게가 없습니다</h2>
+            <p class="empty-state-description">현재 이 카테고리에 등록된 가게가 없습니다.</p>
+        </div>
+    </div>
 
 <div class="restaurant-container">
     <div th:each="storeMenu : ${groupMenus}"
@@ -34,6 +43,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <script>

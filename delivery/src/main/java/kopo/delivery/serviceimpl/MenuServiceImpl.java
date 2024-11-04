@@ -1,9 +1,9 @@
 package kopo.delivery.serviceimpl;
 
-import kopo.delivery.dto.CartDTO;
-import kopo.delivery.entity.Cart;
+import kopo.delivery.entity.Category;
 import kopo.delivery.entity.Store;
 import kopo.delivery.entity.StoreMenu;
+import kopo.delivery.repository.CategoryRepo;
 import kopo.delivery.repository.StoreMenuRepo;
 import kopo.delivery.repository.StoreRepo;
 import kopo.delivery.service.MenuService;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -21,6 +22,7 @@ public class MenuServiceImpl implements MenuService {
 
     private final StoreMenuRepo storeMenuRepo;
     private final StoreRepo storeRepo;
+    private final CategoryRepo categoryRepo;
 
     @Override
     public Map<Long, List<StoreMenu>> getMenuGroupByStore() {
@@ -45,6 +47,9 @@ public class MenuServiceImpl implements MenuService {
     public List<StoreMenu> getMenuByStore(Long storeId) {
         return storeMenuRepo.findByStore_storeID(storeId);
     }
+
+    @Override
+    public Optional<Category> getCategoryById(Long CategoryID) { return categoryRepo.findById(CategoryID); }
 
 
 }

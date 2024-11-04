@@ -23,14 +23,19 @@ public class DetailMenuController {
     @GetMapping("/store/{storeId}")
     public String detailMenu(@PathVariable("storeId") Long storeId, Model model, HttpSession session) {
 
-        Object addressObj = session.getAttribute("selectAddress");
-        String selectAddress = null;
+        /*String roleYaddress = mainService.roleAddress();
+        String selectAddress = (String) session.getAttribute("selectAddress");
 
-        if (addressObj != null) {
-            selectAddress = mainService.sessionValue(addressObj);
-        } else {
-            selectAddress = mainService.roleAddress();
+        if (selectAddress == null || selectAddress.isEmpty()) {
+            selectAddress = roleYaddress;
         }
+        model.addAttribute("selectAddress", selectAddress);*/
+
+        String address = (String) session.getAttribute("selectAddress");
+        System.out.println("세션에 저장되어 있는 애는 누구인가?" + address);
+        String selectAddress = (address != null)
+                ? mainService.sessionValue(address)
+                : mainService.roleAddress();
 
         model.addAttribute("selectAddress", selectAddress);
 

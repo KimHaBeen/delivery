@@ -31,7 +31,6 @@ public class StoreMenuTest {
         store.setStoreID(1L);
         store.setStoreName("Sample Store");
         store.setStoreMinAmount(5000);
-        store.setCategory("Fast Food");
         storeRepo.save(store);
 
         // 2. StoreMenu 엔티티 생성 및 저장
