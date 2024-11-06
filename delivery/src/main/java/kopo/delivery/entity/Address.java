@@ -3,15 +3,16 @@ package kopo.delivery.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Entity(name = "address")
 @Table
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Address {
 	
 	@Id

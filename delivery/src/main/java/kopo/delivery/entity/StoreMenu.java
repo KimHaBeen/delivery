@@ -1,13 +1,17 @@
 package kopo.delivery.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity(name = "storeMenu")
 @Table
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class StoreMenu {
 
     @Id
@@ -26,4 +30,6 @@ public class StoreMenu {
     private int menuAmount;
 
     private String url;
+
+
 }

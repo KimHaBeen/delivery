@@ -1,17 +1,16 @@
 package kopo.delivery.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Table
 @Getter
 @Setter
-@Table
-@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cart {
 
     @Id

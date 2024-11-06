@@ -1,20 +1,19 @@
 package kopo.delivery.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-@Getter
 @ToString
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class StoreDTO {
 
-            private Long storeID;
-    @Setter private String storeName;
-    @Setter private int storeMinAmount;
-    @Setter private String category;
+    private Long storeID;
+    private String storeName;
+    private int storeMinAmount;
+    private String category;
 
-    public StoreDTO(String storeName) {
-        this.storeName = storeName;
-    }
 
 }

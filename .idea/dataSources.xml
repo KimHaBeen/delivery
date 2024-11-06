@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="gcp_delivery" uuid="9d04c83c-96d0-4af9-b319-fb38208acd60">
+    <data-source source="LOCAL" name="@delivery" uuid="df6df950-42ea-4a6e-8978-d4797c58b6df">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://35.222.134.5:3306</jdbc-url>
+      <jdbc-url>jdbc:mysql://34.172.227.227:3306</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
@@ -14,13 +14,13 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="delivery@35.222.134.5" uuid="e8fd7e9a-0bdd-4309-baa3-9619d1b50e6c">
+    <data-source source="LOCAL" name="delivery-data@34.172.227.227" uuid="389fec5a-d9ab-4044-a3e1-52e696fd7eec">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <imported>true</imported>
       <remarks>$PROJECT_DIR$/delivery/src/main/resources/application.properties</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://35.222.134.5:3306/delivery?useSSL=false&amp;useUnicode=true&amp;serverTimezone=Asia/Seoul</jdbc-url>
+      <jdbc-url>jdbc:mysql://34.172.227.227:3306/delivery-data?useSSL=false&amp;useUnicode=true&amp;serverTimezone=Asia/Seoul</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />

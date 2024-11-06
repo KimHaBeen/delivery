@@ -2,15 +2,19 @@ package kopo.delivery.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @Entity(name = "store")
+@Table
 @Getter
 @Setter
-@Table
+@NoArgsConstructor
+@AllArgsConstructor
 public class Store {
 
     @Id

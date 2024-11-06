@@ -39,7 +39,14 @@
     margin: 20px auto;
 }
 
+.search-bar input:focus {
+    outline: none;
+    border: 2px solid #8BA740;
+    box-shadow: 0 0 5px rgba(139, 167, 64, 0.5);
+}
+
 #clickable {
     cursor: pointer;
 }
+
 

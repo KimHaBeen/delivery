@@ -1,25 +1,24 @@
 package kopo.delivery.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @ToString
 @Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CartDTO {
 
-            private Long id;
-    @Setter private StoreMenuDTO menu;
-    @Setter private int quantity;
-            private LocalDateTime addTime = LocalDateTime.now();
+    private Long id;
+    private StoreMenuDTO menu;
+    private int quantity;
+    private Long count;
+    @Builder.Default
+    private LocalDateTime addTime = LocalDateTime.now();
 
-    public CartDTO(Long id, StoreMenuDTO menu, int quantity, LocalDateTime addTime) {
-        this.id = id;
-        this.menu = menu;
-        this.quantity = quantity;
-        this.addTime = addTime;
-    }
 
 }

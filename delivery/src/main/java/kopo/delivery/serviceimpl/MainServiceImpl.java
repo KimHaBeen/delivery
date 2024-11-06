@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import jakarta.transaction.Transactional;
 import kopo.delivery.entity.Category;
 import kopo.delivery.repository.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class MainServiceImpl implements MainService{
     Address addressentity = new Address();
     
     @Override
+	@Transactional
     public void addressSave(AddressDTO addressdto) throws Exception {
     	System.out.println("service로 왓난요?");
     	addressentity.setId("habeen"); //아이디 고정

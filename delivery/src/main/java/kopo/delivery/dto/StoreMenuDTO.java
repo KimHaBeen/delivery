@@ -1,21 +1,27 @@
 package kopo.delivery.dto;
 
-import lombok.Getter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonToken;
+import lombok.*;
 
-@Getter
 @ToString
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class StoreMenuDTO {
 
+    @JsonProperty("menuId")
     private Long id;
     private StoreDTO store;
     private String menuName;
     private int menuAmount;
     private String url;
 
-    public StoreMenuDTO(Long id, StoreDTO storeDTO, String menuName, int menuAmount) {
+
+    public StoreMenuDTO(Long id, String menuName, int menuAmount) {
         this.id = id;
-        this.store = storeDTO;
         this.menuName = menuName;
         this.menuAmount = menuAmount;
     }

@@ -1,13 +1,17 @@
 package kopo.delivery.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Table
 @Entity
+@Table
 @Getter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Category {
 
     @Id
