@@ -21,8 +21,6 @@ public class Cart {
     @JoinColumn(name = "menu_id", nullable = false)
     private StoreMenu menu;
 
-    private int quantity;
-
     private LocalDateTime addTime;
 
     @PrePersist //DB가 저장되기 직전에 저장하는 시간.

@@ -61,4 +61,17 @@ public class CartContoller {
         return cartService.getCartItems();
     }
 
+    @MessageMapping("/plusBtn")
+    @SendTo("/topic/cartUpdates")
+    public List<CartDTO> plusBtn(Map<String, Object> map) {
+        String action = (String) map.get("action");
+        Long menuId = ((Number) map.get("id")).longValue();
+        System.out.println(menuId + "넘어옴");
+
+        if ("plusBtn".equals(action)) {
+            cartService.cartItemsPlus(menuId);
+        }
+        return cartService.getCartItems();
+    }
+
 }

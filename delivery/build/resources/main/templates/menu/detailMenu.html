@@ -112,7 +112,7 @@
                     <div class="quantity-control">
                         <button class="quantity-btn minus" data-id=${item.menu.menuId}>-</button>
                         <span class="quantity">${item.count}</span>
-                        <button class="quantity-btn plus">+</button>
+                        <button class="quantity-btn plus" data-id="${item.menu.menuId}">+</button>
                     </div>
                     <p class="cart-item-amount">${item.menu.menuAmount.toLocaleString()}원</p>
                 </div>
@@ -130,6 +130,14 @@
 
             const message = JSON.stringify({ action: "minusBtn", id: menuId});
             stompClient.send("/app/minusBtn", {}, message);
+        })
+
+        $(document).on('click', '.quantity-btn.plus', function () {
+            alert("클릭")
+            let menuId = $(this).data('id')
+
+            const message = JSON.stringify({ action: "plusBtn", id: menuId});
+            stompClient.send("/app/plusBtn", {}, message);
         })
 
         // WebSocket 연결 시작

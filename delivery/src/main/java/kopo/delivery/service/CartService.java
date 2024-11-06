@@ -15,4 +15,6 @@ public interface CartService {
     String getMaxCartId(Long menuId);
 
     List<CartDTO> cartItemsMinus(Long cartId);
+
+    Cart cartItemsPlus(Long cartId);
 }

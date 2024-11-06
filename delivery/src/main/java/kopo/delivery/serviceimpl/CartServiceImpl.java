@@ -58,6 +58,7 @@ public class CartServiceImpl implements CartService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public String getMaxCartId(Long menuId){
         String cartId = String.valueOf(cartRepo.findMaxCartIdByMenuId(menuId));
         return cartId;
@@ -70,5 +71,14 @@ public class CartServiceImpl implements CartService {
         return getCartItems();
     }
 
+    @Override
+    @Transactional
+    public Cart cartItemsPlus(Long menuId){
+        StoreMenu storeMenu = storeMenuRepo.findById(menuId).orElse(null);
+        Cart cart = new Cart();
+        cart.setMenu(storeMenu);
+        cart.setAddTime(LocalDateTime.now());
+        return cartRepo.save(cart);
+    }
 
 }
