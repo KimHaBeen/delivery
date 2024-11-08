@@ -4,4 +4,8 @@ import kopo.delivery.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepo extends JpaRepository<User, Integer> {
+
+    boolean existsByUserID(String userID);
+
+    User findByUserID(String userID);
 }

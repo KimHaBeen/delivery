@@ -44,6 +44,7 @@
                 <h2>🛒장바구니</h2>
                 <div class="cart-items"></div>
                 <div class="cart-total">총 금액: 0원</div>
+                <button id="orderBtn" class="orderBtn">결제하기</button>
             </div>
         </div>
     </div>
@@ -53,7 +54,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBogGz2mI6aIJZzE1pPj7VAP5YwjRAkP41G/c7Xr4YfRSV4LP" crossorigin="anonymous"></script>
 <script src="/webjars/sockjs-client/1.1.2/sockjs.min.js"></script>
 <script src="/webjars/stomp-websocket/2.3.3-1/stomp.min.js"></script>
-<script>
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+    <script>
     $(document).ready(function() {
         //페이지로드시 최초 장바구니
         $.ajax({
@@ -125,7 +128,7 @@
         }
 
         $(document).on('click', '.quantity-btn.minus', function () {
-            alert("클릭")
+
             let menuId = $(this).data('id')
 
             const message = JSON.stringify({ action: "minusBtn", id: menuId});
@@ -133,7 +136,7 @@
         })
 
         $(document).on('click', '.quantity-btn.plus', function () {
-            alert("클릭")
+
             let menuId = $(this).data('id')
 
             const message = JSON.stringify({ action: "plusBtn", id: menuId});
@@ -144,6 +147,70 @@
         connect();
 
     });
+
+    $("#orderBtn").on("click", function () {
+        const userid = "rlagkqls";
+        const username = "김하빈";
+        const amount = $('.cart-total').val();
+        const phone = "01012345678";
+        const merchant_uid = "O" + new Date().getTime(); // 고유한 주문번호 생성
+
+        // 가맹점 식별코드와 imp_uid 가져오기 (fetch 대신 $.ajax 사용)
+        $.ajax({
+            url: '/api/imp-code',
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                const impCode = response.imp_Code;
+                console.log("imp_Code:", impCode); // 가맹점 식별코드 확인
+
+                const IMP = window.IMP;
+                IMP.init(impCode); // 서버에서 받아온 가맹점 식별코드로 초기화
+
+                IMP.request_pay({
+                    pg: "html5_inicis",
+                    pay_method: "card",
+                    merchant_uid: merchant_uid,
+                    name: "주문명: 결제 테스트",
+                    amount: 100,
+                    buyer_id: userid,
+                    buyer_tel: phone,
+                    buyer_addr: "서울특별시 강남구 삼성동",
+                    buyer_postcode: "123-456",
+                }, function (rsp) {
+                    if (rsp.success) {
+                        alert("결제가 완료되었습니다.");
+                        $.ajax({
+                            url: '/payment/complete',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                imp_uid: rsp.imp_uid,
+                                merchant_uid: rsp.merchant_uid,
+                                paid_amount: rsp.paid_amount,
+                                buyer_id: userid,
+                                buyer_tel: phone,
+                                status: rsp.status
+                            }),
+                            success: function(data) {
+                                alert("서버 응답: 결제 검증이 완료되었습니다.");
+                                console.log(data);
+                            },
+                            error: function(xhr, status, error) {
+                                console.error('Error:', error);
+                            }
+                        });
+                    } else {
+                        alert("결제가 실패되었습니다. 에러 내용: " + rsp.error_msg);
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching imp_code:', error);
+            }
+        });
+    });
+
 </script>
 </body>
 </html>
