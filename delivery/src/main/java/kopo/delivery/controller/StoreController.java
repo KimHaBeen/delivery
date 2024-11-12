@@ -36,6 +36,17 @@ public class StoreController {
 
 		model.addAttribute("selectAddress", selectAddress);
 
+		//로그인조회
+		String userID = (String) session.getAttribute("userID");
+		System.out.println(userID);
+		model.addAttribute("userID", userID);
+
+		if (userID != null) {
+			System.out.println(userID);
+		}else {
+			System.out.println("없음");
+		}
+
 		// 1. 카테고리 정보 조회 (항상 존재)
 		Optional<Category> category = menuService.getCategoryById(categoryID);
 		String category_name = category.map(Category::getCategory).orElse("null");

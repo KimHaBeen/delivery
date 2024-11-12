@@ -16,4 +16,7 @@ public class StoreDTO {
     private String category;
 
 
+    public StoreDTO(Long storeID) {
+        this.storeID = storeID;
+    }
 }

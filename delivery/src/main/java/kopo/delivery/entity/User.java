@@ -1,10 +1,8 @@
 package kopo.delivery.entity;
 
+import com.nimbusds.oauth2.sdk.TokenIntrospectionSuccessResponse;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -12,6 +10,7 @@ import java.util.List;
 @Table
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -37,5 +36,15 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addresses;
+
+    //카카오 필드
+    @Column(name = "nickname", nullable = true)
+    private String nickname; // 카카오 로그인 닉네임을 저장하기 위한 필드
+
+    @Column(name = "provider", nullable = true)
+    private String provider; // 소셜 로그인 제공자 (예: "kakao")
+
+    @Column(name = "provider_id", nullable = true)
+    private String providerId;
 
 }

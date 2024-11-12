@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -23,6 +23,8 @@
 		<div th:each="address : ${address}" class="address-item">
             <div>
 			    <span th:text="${address.address}" class="address-text"></span>   <!-- 주소 텍스트 표시 -->
+				<br>
+				<span th:text="${address.detailAddress}" class="detail-text text-muted small"></span>
             	<input type="hidden" th:value="${address.address}" class="selextText">
             </div>
             <div class="address-actions">

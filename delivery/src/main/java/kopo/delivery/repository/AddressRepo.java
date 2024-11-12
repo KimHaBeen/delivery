@@ -9,9 +9,7 @@ import kopo.delivery.entity.Address;
 
 public interface AddressRepo extends JpaRepository<Address, String>{
 	
-	public String findAddressById(String id);
-
-	public void save(AddressDTO address);
-	
 	public List<Address> findByRoleContains(String role);
+
+	List<Address> findByUserUserID(String userID);
 }

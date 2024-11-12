@@ -47,12 +47,12 @@ public class HomeController {
 		model.addAttribute("category", category);
 		System.out.println(category);
 
-		@SuppressWarnings("unchecked")
-		List<UserDTO> loginuser = (List<UserDTO>) session.getAttribute("loginuser");
-		model.addAttribute("loginuser", loginuser);
+		String userID = (String) session.getAttribute("userID");
+		System.out.println(userID);
+		model.addAttribute("userID", userID);
 
-		if (loginuser != null) {
-			System.out.println(loginuser);
+		if (userID != null) {
+			System.out.println(userID);
 		}else {
 			System.out.println("없음");
 		}
@@ -61,16 +61,18 @@ public class HomeController {
 	}
 	
 	@GetMapping("/map")
-	public String map(Model model) {
-		List<Address> address = mainService.getAllAddress();
+	public String map(Model model, HttpSession session) {
+		String userID = (String) session.getAttribute("userID");
+		List<Address> address = mainService.getAllAddress(userID);
 		model.addAttribute("address", address);
 		return "view/map";
 	}
 	
 	@PostMapping("/address")
 	@ResponseBody
-	public Map<String, String> mapComplete(@RequestBody AddressDTO addressdto) throws Exception {
-		mainService.addressSave(addressdto);
+	public Map<String, String> mapComplete(@RequestBody AddressDTO addressdto, HttpSession session) throws Exception {
+		String userID = (String) session.getAttribute("userID");
+		mainService.addressSave(addressdto, userID);
 		
 		Map<String, String> response = new HashMap<>();
 		response.put("status", "success");

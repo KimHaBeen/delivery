@@ -2,18 +2,13 @@ package kopo.delivery.controller;
 
 import jakarta.servlet.http.HttpSession;
 import kopo.delivery.dto.UserDTO;
-import kopo.delivery.dto.kakaodto.KakaoUserInfoResponseDTO;
-import kopo.delivery.service.KakaoService;
 import kopo.delivery.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -21,7 +16,6 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
-    private final KakaoService kakaoService;
 
     @GetMapping("/login")
     public String login(Model model) {
@@ -34,23 +28,26 @@ public class UserController {
         return "user/login";
     }
 
-    @PostMapping("/login/complete")
+   /* 검증부분은 UserDetailsService에 넘김.
+   @PostMapping("/login/complete")
     @ResponseBody
     public Map<String, Object> loginComplete(@RequestBody UserDTO userDTO, HttpSession session) {
         Map<String, Object> response = new HashMap<>();
         List<UserDTO> result = userService.loginCompleteProcess(userDTO);
+        System.out.println("로그인 검증 중");
 
         if (result!=null && !result.isEmpty()) {
             response.put("status", "success");
             response.put("response", result);
             session.setAttribute("loginuser",result);
+            System.out.println("로그인 검증 완료");
         }else {
             response.put("status", "fail");
             response.put("message", "비밀번호나 아이디가 일치하지 않습니다.");
         }
 
         return response;
-    }
+    }*/
 
     @GetMapping("/signup")
     public String signup() {
@@ -65,19 +62,24 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @GetMapping("/logout")
+    /*@GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
+    }*/
+
+    @GetMapping("/oauth/kakao")
+    public String redirectToKakaoLogin() {
+        return "redirect:/oauth2/authorization/kakao";
     }
 
-    @GetMapping("/callback")
-    public ResponseEntity<?> callback(@RequestParam("code") String code) {
-        String accessToken = kakaoService.getAccessTokenFromKakao(code);
-
-        KakaoUserInfoResponseDTO userInfo = kakaoService.getUserInfo(accessToken);
-
-        // User 로그인, 또는 회원가입 로직 추가
-        return new ResponseEntity<>(HttpStatus.OK);
+    @GetMapping("/isLoggedIn")
+    @ResponseBody
+    public Map<String, Object> isLoggedIn(HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
+        Object userId = session.getAttribute("userID");
+        response.put("loggedIn", userId != null);  // 로그인 여부 확인
+        return response;
     }
+
 }

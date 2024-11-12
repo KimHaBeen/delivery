@@ -16,6 +16,7 @@ public class CartDTO {
     private Long id;
     private StoreMenuDTO menu;
     private Long count;
+    private Long storeID;
     @Builder.Default
     private LocalDateTime addTime = LocalDateTime.now();
 

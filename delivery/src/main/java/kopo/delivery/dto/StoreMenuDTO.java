@@ -20,9 +20,10 @@ public class StoreMenuDTO {
     private String url;
 
 
-    public StoreMenuDTO(Long id, String menuName, int menuAmount) {
+    public StoreMenuDTO(Long id, String menuName, int menuAmount, Long storeID) {
         this.id = id;
         this.menuName = menuName;
         this.menuAmount = menuAmount;
+        this.store = new StoreDTO(storeID);
     }
 }

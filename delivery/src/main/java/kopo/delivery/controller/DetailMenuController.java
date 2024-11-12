@@ -39,6 +39,17 @@ public class DetailMenuController {
 
         model.addAttribute("selectAddress", selectAddress);
 
+        //로그인조회
+        String userID = (String) session.getAttribute("userID");
+        System.out.println(userID);
+        model.addAttribute("userID", userID);
+
+        if (userID != null) {
+            System.out.println(userID);
+        }else {
+            System.out.println("없음");
+        }
+
         Store store = menuService.StoreID(storeId);
 
         model.addAttribute("store", store);

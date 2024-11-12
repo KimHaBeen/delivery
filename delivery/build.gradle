@@ -42,6 +42,7 @@ dependencies {
 	//카카오 http를 위해
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.springframework.security:spring-security-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	//아임포트
 	implementation 'com.github.iamport:iamport-rest-client-java:0.2.21'
 

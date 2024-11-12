@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,19 +70,68 @@
         })
 
         //장바구니 버튼 클릭시 장바구니에 추가
-        $('.cart-icon').click(function() {
-                $.ajax({
-                    url: "/cart/addCart",
-                    type: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify({menuId: $(this).attr('data-id')}),
-                    success: function (response) {
-                        console.log(response)
-                    },error: function (request, status, error) {
-                        console.error(error)
+        $('.cart-icon').on("click", function() {
+            const menuID = $(this).attr('data-id');
+            $.ajax({
+                url: "/cart/addCart",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ menuId: menuID }),
+                success: function(response) {
+                    console.log("메뉴 ID:", menuID);
+
+                    if (response.error) {
+                        const userConfirmed = confirm(response.error);
+                        if (userConfirmed) {
+                            // 기존 항목 삭제 후 새로 추가 요청
+                            $.ajax({
+                                url: "/cart/removeCartItem",
+                                type: "DELETE",
+                                contentType: "application/json",
+                                data: JSON.stringify({ cartId: response.existingCartId }),
+                                success: function() {
+                                    $.ajax({
+                                        url: "/cart/addCart",
+                                        type: "POST",
+                                        contentType: "application/json",
+                                        data: JSON.stringify({ menuId: menuID }),
+                                        success: function(response) {
+                                            alert('장바구니가 업데이트되었습니다.');
+                                        },
+                                        error: function(request) {
+                                            if (request.status === 401) {
+                                                const errorResponse = JSON.parse(request.responseText);
+                                                alert(errorResponse.error);
+                                            } else {
+                                                console.error("추가 오류:", request.statusText);
+                                            }
+                                        }
+                                    });
+                                },
+                                error: function(request) {
+                                    if (request.status === 401) {
+                                        const errorResponse = JSON.parse(request.responseText);
+                                        alert(errorResponse.error);
+                                    } else {
+                                        console.error("삭제 오류:", request.statusText);
+                                    }
+                                }
+                            });
+                        }
+                    } else {
+                        console.log('장바구니에 추가됨:', response);
                     }
-                });
+                },
+                error: function(request) {
+                    if (request.status === 401) { // Unauthorized 상태코드 체크
+                        const errorResponse = JSON.parse(request.responseText);
+                        alert(errorResponse.error); // 에러 메시지를 alert 창에 표시
+                    } else {
+                        console.error("추가 오류:", request.statusText);
+                    }
+                }
             });
+        });
 
         //웹소켓 연결
         let stompClient = null;
@@ -149,64 +198,81 @@
     });
 
     $("#orderBtn").on("click", function () {
-        const userid = "rlagkqls";
-        const username = "김하빈";
-        const amount = $('.cart-total').val();
-        const phone = "01012345678";
-        const merchant_uid = "O" + new Date().getTime(); // 고유한 주문번호 생성
-
-        // 가맹점 식별코드와 imp_uid 가져오기 (fetch 대신 $.ajax 사용)
         $.ajax({
-            url: '/api/imp-code',
-            type: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                const impCode = response.imp_Code;
-                console.log("imp_Code:", impCode); // 가맹점 식별코드 확인
+            url: "/check-address",
+            type: "GET",
+            success: function (response) {
+                if (!response.haveAddress) {
+                    alert(response.message); // 주소가 없으면 메시지 표시
+                    return;
+                }
 
-                const IMP = window.IMP;
-                IMP.init(impCode); // 서버에서 받아온 가맹점 식별코드로 초기화
+                const userid = "rlagkqls";
+                const username = "김하빈";
+                const amount = $('.cart-total').val();
+                const phone = "01012345678";
+                const merchant_uid = "O" + new Date().getTime(); // 고유한 주문번호 생성
 
-                IMP.request_pay({
-                    pg: "html5_inicis",
-                    pay_method: "card",
-                    merchant_uid: merchant_uid,
-                    name: "주문명: 결제 테스트",
-                    amount: 100,
-                    buyer_id: userid,
-                    buyer_tel: phone,
-                    buyer_addr: "서울특별시 강남구 삼성동",
-                    buyer_postcode: "123-456",
-                }, function (rsp) {
-                    if (rsp.success) {
-                        alert("결제가 완료되었습니다.");
-                        $.ajax({
-                            url: '/payment/complete',
-                            type: 'POST',
-                            contentType: 'application/json',
-                            data: JSON.stringify({
-                                imp_uid: rsp.imp_uid,
-                                merchant_uid: rsp.merchant_uid,
-                                paid_amount: rsp.paid_amount,
-                                buyer_id: userid,
-                                buyer_tel: phone,
-                                status: rsp.status
-                            }),
-                            success: function(data) {
-                                alert("서버 응답: 결제 검증이 완료되었습니다.");
-                                console.log(data);
-                            },
-                            error: function(xhr, status, error) {
-                                console.error('Error:', error);
+                // 가맹점 식별코드와 imp_uid 가져오기
+                $.ajax({
+                    url: '/api/imp-code',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        const impCode = response.imp_Code;
+                        console.log("imp_Code:", impCode); // 가맹점 식별코드 확인
+
+                        const IMP = window.IMP;
+                        IMP.init(impCode); // 서버에서 받아온 가맹점 식별코드로 초기화
+
+                        IMP.request_pay({
+                            pg: "html5_inicis",
+                            pay_method: "card",
+                            merchant_uid: merchant_uid,
+                            name: "주문명: 결제 테스트",
+                            amount: 100,
+                            buyer_id: userid,
+                            buyer_tel: phone,
+                            buyer_addr: "서울특별시 강남구 삼성동",
+                            buyer_postcode: "123-456",
+                        }, function (rsp) {
+                            if (rsp.success) {
+                                alert("결제가 완료되었습니다.");
+                                $.ajax({
+                                    url: '/payment/complete',
+                                    type: 'POST',
+                                    contentType: 'application/json',
+                                    data: JSON.stringify({
+                                        imp_uid: rsp.imp_uid,
+                                        merchant_uid: rsp.merchant_uid,
+                                        paid_amount: rsp.paid_amount,
+                                        buyer_id: userid,
+                                        buyer_tel: phone,
+                                        status: rsp.status
+                                    }),
+                                    success: function (data) {
+                                        alert("서버 응답: 결제 검증이 완료되었습니다.");
+                                        console.log(data);
+                                        if (data.redirectUrl) {
+                                            location.href = data.redirectUrl;
+                                        }
+                                    },
+                                    error: function (xhr, status, error) {
+                                        console.error('Error:', error);
+                                    }
+                                });
+                            } else {
+                                alert("결제가 실패되었습니다. 에러 내용: " + rsp.error_msg);
                             }
                         });
-                    } else {
-                        alert("결제가 실패되었습니다. 에러 내용: " + rsp.error_msg);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error fetching imp_code:', error);
                     }
                 });
             },
-            error: function(xhr, status, error) {
-                console.error('Error fetching imp_code:', error);
+            error: function (xhr, status, error) {
+                console.error("Error checking address:", error);
             }
         });
     });

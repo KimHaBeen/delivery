@@ -1,16 +1,13 @@
 package kopo.delivery.serviceimpl;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import jakarta.transaction.Transactional;
 import kopo.delivery.entity.Category;
+import kopo.delivery.entity.User;
 import kopo.delivery.repository.CategoryRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import kopo.delivery.repository.UserRepo;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import jakarta.servlet.http.HttpSession;
 import kopo.delivery.dto.AddressDTO;
@@ -25,24 +22,34 @@ public class MainServiceImpl implements MainService{
 	
     private final AddressRepo addressRepo;
 	private final CategoryRepo categoryRepo;
+	private final UserRepo userRepo;
     Address addressentity = new Address();
     
     @Override
 	@Transactional
-    public void addressSave(AddressDTO addressdto) throws Exception {
+    public void addressSave(AddressDTO addressdto, String userID) throws Exception {
     	System.out.println("service로 왓난요?");
-    	addressentity.setId("habeen"); //아이디 고정
+		User user = userRepo.findByUserID(userID);
+
     	addressentity.setAddress(addressdto.getAddress()); //dto에서 http에서 넣은 값 가져오기
     	addressentity.setDetailAddress(addressdto.getDetailAddress());
+    	addressentity.setId(userID); //아이디 고정
+		addressentity.setUser(user);
+
     	System.out.println(addressentity.getId());
     	System.out.println(addressentity.getAddress());
     	System.out.println(addressentity.getDetailAddress());
+		System.out.println(addressentity.getUser());
+
     	addressRepo.save(addressentity); //데이터베이스에 저장.
     }
 
 	@Override
-	public List<Address> getAllAddress() {
-		return addressRepo.findAll();
+	public List<Address> getAllAddress(String userID) {
+		if (userID == null) {
+			throw new IllegalStateException("로그인된 사용자 정보가 없습니다.");
+		}
+		return addressRepo.findByUserUserID(userID);
 	}
 
 
