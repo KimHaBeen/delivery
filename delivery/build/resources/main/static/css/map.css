@@ -145,3 +145,13 @@
     background-color: #ccc;
     color: white;
 }
+.address-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-text {
+    color: #6c757d;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
