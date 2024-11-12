@@ -209,7 +209,8 @@
 
                 const userid = "rlagkqls";
                 const username = "김하빈";
-                const amount = $('.cart-total').val();
+                const amountText = $('.cart-total').text(); // '총 금액: 10000원'과 같은 텍스트 전체를 가져옵니다.
+                const amount = amountText.replace(/[^\d]/g, '');
                 const phone = "01012345678";
                 const merchant_uid = "O" + new Date().getTime(); // 고유한 주문번호 생성
 
@@ -230,7 +231,7 @@
                             pay_method: "card",
                             merchant_uid: merchant_uid,
                             name: "주문명: 결제 테스트",
-                            amount: 100,
+                            amount: amount,
                             buyer_id: userid,
                             buyer_tel: phone,
                             buyer_addr: "서울특별시 강남구 삼성동",
