@@ -34,17 +34,20 @@ public class PaymentController {
     @ResponseBody
     @PostMapping("/payment/complete")
     public Map<String, String> paymentComplete(HttpSession session, @RequestBody Map<String, Object> paymentData) throws IOException {
+        System.out.println("요청들어온 data" + paymentData);
+
         String impUid = (String) paymentData.get("imp_uid");
         int amount = (int) paymentData.get("paid_amount");
 
         Map<String, String> response = new HashMap<>();
-
-        String address = (String) session.getAttribute("address");
+        String address = (String) session.getAttribute("selectAddress");
+        System.out.println("주소가 세션에 설정되었습니다: " + address);
         if (address == null) {
             response.put("error", "주소를 선택해주세요");
             return response;
         }
         try {
+            System.out.println("결제 검증 시작: impUid=" + impUid + ", amount=" + amount);
             boolean isPaymentValid = paymentService.verifyPayment(impUid, amount);
 
             if (isPaymentValid) {
@@ -58,6 +61,7 @@ public class PaymentController {
             response.put("redirectUrl", "/error"); // 오류 발생 시 오류 페이지로 리다이렉트
         }
         return response;
+
     }
 
 
@@ -70,7 +74,7 @@ public class PaymentController {
     @ResponseBody
     public Map<String, Object> checkAddress(HttpSession session) {
         Map<String, Object> response = new HashMap<>();
-        String address = (String) session.getAttribute("address");
+        String address = (String) session.getAttribute("selectAddress");
 
         if (address != null) {
             response.put("haveAddress", true);

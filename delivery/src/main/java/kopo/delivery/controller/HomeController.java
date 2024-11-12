@@ -86,7 +86,7 @@ public class HomeController {
 		System.out.println("선택한 주소: " + selectAddress);
 		
 		session.setAttribute("selectAddress", selectAddress);
-		
+		System.out.println("세션에 저장된 주소:" + session.getAttribute("selectAddress"));
 		Map<String, String> response = new HashMap<>();
 		response.put("status", "success");
 		return response;
