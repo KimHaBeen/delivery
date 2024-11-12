@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <link href="/css/login.css" rel="stylesheet">
+</head>
+<body>
+    <div class="form">
+        <h2>로그인</h2>
+        <label for="userID">아이디:</label>
+        <input type="text" id="userID" name="userID" required>
+
+        <label for="userPW">비밀번호:</label>
+        <input type="password" id="userPW" name="userPW" required>
+
+        <p class="error-Msg" id="errorMsg" style="display: none;"></p>
+
+        <button class="loginBtn" type="button">로그인</button>
+
+        <div class="kakao-login">
+            <a th:href="@{/kakao/login}" class="kakao-btn">
+                <img src="/images/kakao_login_medium_wide.png" alt="카카오 로그인" />
+            </a>
+        </div>
+
+        <div class="register-link">
+            <p>계정이 없으신가요? <a th:href="@{/signup}">회원가입</a></p>
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        console.log("페이지 로드 완료")
+        $(".loginBtn").on("click", function (event) {
+            event.preventDefault();
+
+            const userID = $("#userID").val();
+            const userPW = $("#userPW").val();
+
+            const data = { username: userID, password: userPW };
+            console.log(data)
+
+            $.ajax({
+                url: "/login/complete",
+                type: "POST",
+                data: { username: userID, password: userPW },
+                success: function (response) {
+                    if (response.status === "success") {
+                        //로그인 성공시
+                        alert(response.message);
+                        location.href = "/";
+                    }
+                },
+                error: function (request) {
+                    const errorResponse = JSON.parse(request.responseText);
+                    $("#errorMsg").text(errorResponse.message).css("display", "block"); // 실패 메시지 표시
+                }
+            })
+        })
+    })
+</script>
+</html>

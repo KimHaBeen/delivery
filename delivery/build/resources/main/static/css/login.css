@@ -1,0 +1,88 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+.form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 300px;
+}
+h2 {
+    text-align: center;
+    color: #333;
+}
+label {
+    display: block;
+    margin-top: 10px;
+}
+input{
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+button {
+    width: 100%;
+    height: 45px;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.loginBtn {
+    background-color: #8BA740;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+}
+.loginBtn:hover {
+    background-color: #6B5A01;
+}
+
+/* 카카오 로그인 버튼 스타일 */
+.kakao-login {
+    text-align: center;
+    margin-top: 10px;
+}
+.kakao-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FEE500;
+    color: #3C1E1E;
+    border: none;
+    padding: 0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.kakao-btn:hover {
+    background-color: #FADA00;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 15px;
+}
+.register-link a {
+    color: #6B5A01;
+    text-decoration: none;
+}
+.register-link a:hover {
+    text-decoration: underline;
+}
+.error-Msg {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
